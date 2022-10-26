@@ -1,0 +1,567 @@
+#1 locate the right insertion point for a specified value in sortedorder. 
+Expected Output:
+3
+2
+import bisect
+def index(a, x):
+ i = bisect.bisect_right(a, x)
+ return i
+a = [1,2,4,7]
+print(index(a, 6))
+print(index(a, 3))
+
+#2 insert items into a list in sorted order.
+Expected Output:
+Original List:
+[25, 45, 36, 47, 69, 48, 68, 78, 14, 36]
+Sorted List:
+[14, 25, 36, 36, 45, 47, 48, 68, 69, 78]
+ import bisect
+my_list = [25, 45, 36, 47, 69, 48, 68, 78, 14, 36]
+print("Original List:")
+print(my_list)
+sorted_list = []
+for i in my_list:
+ position = bisect.bisect(sorted_list, i)
+ bisect.insort(sorted_list, i)
+print("Sorted List:")
+print(sorted_list)
+
+#3 create a queue and display all the members and size of the queue
+Expected Output:
+Members of the queue:
+0 1 2 3
+Size of the queue:
+4
+import queue
+q = queue.Queue()
+for x in range(4):
+ q.put(x)
+print("Members of the queue:")
+y=z=q.qsize()
+for n in list(q.queue):
+ print(n, end=" ")
+print("\nSize of the queue:")
+print(q.qsize())
+
+#4 find whether a queue is empty or not.
+Expected Output: True
+False
+import queue
+p = queue.Queue()
+q = queue.Queue()
+for x in range(4):
+ q.put(x)
+print(p.empty())
+print(q.empty())
+
+#5 create a FIFO queue
+Expected Output:
+0 1 2 3
+import queue
+q = queue.Queue()
+for x in range(4):
+ q.put(str(x))
+while not q.empty():
+ print(q.get(), end=" ")
+print("\n")
+
+#6 create a LIFO queue.
+Expected Output:
+3 2 1 0
+import queue
+q = queue.LifoQueue()
+for x in range(4):
+ q.put(str(x))
+while not q.empty():
+ print(q.get(), end=" ")
+print()
+
+#7 indices of the two numbers of a given array of
+integers, such that the sum of the two numbers equal to a specific
+target.
+Expected Output:
+Original Array: 4 2 1 5
+Target Value: 7
+Indices of the two numbers whose sum equal to target
+value: 7 1 3
+class TwoSum:
+ def __init__(self, list1, target):
+ self.list1 = list1
+ self.target = target
+ def solution(self):
+ length = len(list1)
+ for i in range(length-1):
+ for j in range(i+1, length):
+ if list1[i]+list1[j] == self.target:
+ new_list = i, j
+ return list(new_list)
+ return -1
+list1 = [4, 2, 1, 5]
+target = 7
+obj = TwoSum(list1, target)
+print(obj.solution())
+
+#8 find length of the longest substring of a given string without repeating characters.
+Expected Output:
+Original String: xyzxyzyy
+Length of the longest substring without repeating characters: 3
+def lengthOfLongestSubstring(s):
+ def check(start, end):
+ chars = [0] * 128
+ for i in range(start, end + 1):
+ c = s[i]
+ chars[ord(c)] += 1
+ if chars[ord(c)] > 1:
+ return False
+ return True
+ n = len(s)
+ res = 0
+ for i in range(n):
+ for j in range(i, n):
+ if check(i, j):
+ 
+#9 find the median of the two given sorted arrays which are not empty.
+Expected Output:
+Median of the above two sorted arrays is: 10.000000
+def getMedian(A, B, n, m) :
+ i = 0
+ j = 0
+ m1, m2 = -1, -1
+ if((m + n) % 2 == 1) :
+ for count in range(((n + m) // 2) + 1) :
+ if(i != n and j != m) :
+ if A[i] > B[j] :
+ m1 = B[j]
+ j += 1
+ else :
+ m1 = A[i]
+ i += 1
+ elif(i < n) :
+ m1 = A[i]
+ i += 1
+ else :
+ m1 = B[j]
+ j += 1
+ return m1
+ else :
+ for count in range(((n + m) // 2) + 1) :
+ m2 = m1
+ if(i != n and j != m) :
+ if A[i] > B[j] :
+ m1 = B[j]
+ j += 1
+ else :
+ m1 = A[i]
+ i += 1
+ elif(i < n) :
+ m1 = A[i]
+ i += 1
+ else :
+ m1 = B[j]
+ j += 1
+ return (m1 + m2)//2
+ 
+#10 find the longest palindromic substring of a given string.
+Maximum length of the given string is 1000.
+Expected Output:
+Original String: yxypxst Longest palindromic substring of the said string: yxy
+def longestPalSubstr(str):
+ n = len(str)
+ maxLength = 1
+ start = 0
+ for i in range(n):
+ for j in range(i, n):
+ flag = 1
+ for k in range(0, ((j - i) // 2) + 1):
+ if (str[i + k] != str[j - k]):
+ flag=0
+ if (flag != 0 and (j - i + 1) > maxLength):
+ start = i
+ maxLength = j - i + 1
+ return maxLength
+if __name__ == "__main__":
+ s = "yxy"
+ print(longestPalSubstr(s))
+ 
+#11 reverse digits of a given a 32-bit signed integer.
+Expected Output:
+Original integer: 123
+Reverse integer : 321
+num = 123
+reversed_num = 0
+while num != 0:
+ digit = num % 10
+ reversed_num = reversed_num * 10 + digit
+ num //= 10
+print("Reversed Number: " + str(reversed_num))
+
+#12 convert a given integer to roman number
+Roman numerals are represented by seven different symbols: I, V, X, L, C, D
+and M. Symbol Value
+I 1
+V 5
+X 10
+L 50
+C 100
+D 500
+M 1000
+Expected Output:
+Original integer: 12
+Roman number of the said integer: XII
+class Solution {
+ public int romanToInt(String s) {
+ if (s == null)
+ return 0;
+ int prev = getValue(s.charAt(0));
+ int res = prev;
+ for (int i = 1; i < s.length(); i++) {
+ int cur = getValue(s.charAt(i));
+ res += cur > prev ? cur - 2*prev : cur;
+ prev = cur;
+ }
+ return res;
+ }
+ public int getValue(char c){
+ switch (c) {
+ case 'I':
+ return 1;
+ case 'V':
+ return 5;
+ case 'X':
+ return 10;
+ case 'L':
+ return 50;
+ case 'C':
+ return 100;
+ case 'D':
+ return 500;
+ case 'M':
+ return 1000;
+ default:
+ return 0;
+ }
+ }
+}
+Second solution (a little bit worse)
+class Solution {
+ public int romanToInt(String s) {
+ if (s == null)
+ return 0;
+ Map<Character, Integer> rn = new HashMap<Character, Integer>(){
+ {
+ put('I', 1);
+ put('V', 5);
+ put('X', 10);
+ put('L', 50);
+ put('C', 100);
+ put('D', 500);
+ put('M', 1000);
+ }
+ };
+ int prev = rn.get(s.charAt(0));
+ int res = prev;
+ for (int i = 1; i < s.length(); i++) {
+ int cur = rn.get(s.charAt(i));
+ res+= cur;
+ if (cur > prev) {
+ res -= 2*prev;
+ }
+ prev = cur;
+ }
+ return res;
+ }
+}
+
+#13 convert a given roman number to an integer.
+Roman numerals are represented by seven different symbols: I, V, X, L, C, D
+and M. Symbol Value
+I 1
+V 5
+X 10
+L 50
+C 100
+D 500
+M 1000
+Expected Output:
+Original Roman number:
+XIV Roman to integer: 14
+class Solution {
+ public int romanToInt(String s) {
+ if (s == null)
+ return 0;
+ int prev = getValue(s.charAt(0));
+ int res = prev;
+ for (int i = 1; i < s.length(); i++) {
+ int cur = getValue(s.charAt(i));
+ res += cur > prev ? cur - 2*prev : cur;
+ prev = cur;
+ }
+ return res;
+ }
+ public int getValue(char c){
+ switch (c) {
+ case 'I':
+ return 1;
+ case 'V':
+ return 5;
+ case 'X':
+ return 10;
+ case 'L':
+ return 50;
+ case 'C':
+ return 100;
+ case 'D':
+ return 500;
+ case 'M':
+ return 1000;
+ default:
+ return 0;
+ }
+ }
+}
+Second solution (a little bit worse)
+class Solution {
+ public int romanToInt(String s) {
+ if (s == null)
+ return 0;
+ Map<Character, Integer> rn = new HashMap<Character, Integer>(){
+ {
+ put('I', 1);
+ put('V', 5);
+ put('X', 10);
+ put('L', 50);
+ put('C', 100);
+ put('D', 500);
+ put('M', 1000);
+ }
+ };
+ int prev = rn.get(s.charAt(0));
+ int res = prev;
+ for (int i = 1; i < s.length(); i++) {
+ int cur = rn.get(s.charAt(i));
+ res+= cur;
+ if (cur > prev) {
+ res -= 2*prev;
+ }
+ prev = cur;
+ }
+ return res;
+ }
+}
+
+#14 find all unique triplets in a given array integers whose sum equal to zero.
+Expected Output:
+Original Array: -2 0 0 1 1
+Unique triplets of the said array whose sum equal to zero: -2 1 1
+def three_sum(nums):
+ result = []
+ nums.sort()
+ for i in range(len(nums)-2):
+ if i> 0 and nums[i] == nums[i-1]:
+ continue
+ l, r = i+1, len(nums)-1
+ while l < r:
+ s = nums[i] + nums[l] + nums[r]
+ if s > 0:
+ r -= 1
+ elif s < 0:
+ l += 1
+ else:
+ result.append((nums[i], nums[l], nums[r]))
+ while l < r and nums[l] == nums[l+1]:
+ l+=1
+ while l < r and nums[r] == nums[r-1]:
+ r -= 1
+ l += 1
+ r -= 1
+ return result
+x = [-2,0,0,1,1 ]
+print(three_sum(x))
+
+#15 find all unique quadruplets in a given array of integers whose sum equal to zero.
+Expected Output:
+Original Array: 0 4 7 0 1 6 6 -3
+Unique quadruplets of the said array whose sum equal to 12:
+0 0 6 6
+0 1 4 7
+class Solution:
+ def fourSum(self, nums, target):
+ """
+ :type nums: List[int]
+ :type target: int
+ :rtype: List[List[int]]
+ """
+ N = 4
+ quadruplets = []
+ if len(nums) < N:
+ return quadruplets
+ nums = sorted(nums)
+ quadruplet = []
+ top = [0]
+ for i in range(1, N):
+ top.append(top[i - 1] + nums[-i])
+ def sum_(curr_target, curr_n, lo=0):
+ if curr_n == 0:
+ if curr_target == 0: quadruplets.append(quadruplet[:])
+ return
+ next_n = curr_n - 1
+ max_i = len(nums) - curr_n
+ max_i = bisect_left(
+ nums, curr_target // curr_n,
+ lo, max_i)
+ min_i = bisect_left(
+ nums, curr_target - top[next_n],
+ lo, max_i)
+ for i in range(min_i, max_i + 1):
+ if i == min_i or nums[i] != nums[i - 1]
+ quadruplet.append(nums[i])
+ next_target = curr_target - nums[i]
+ sum_(next_target, next_n, i + 1)
+ quadruplet.pop()
+ sum_(target, N)
+ return quadruplets
+s = Solution()
+nums = [0,4,7,0,1,6,6,-3]
+target = 12
+result = s.fourSum(nums, target)
+print("\nArray values & target value:",nums,"&",target)
+print("Solution Set:\n", result)
+
+#16 check if a given string is valid or not, the string contains the
+characters '(', ')', '{', '}', '[' and ']'. The string is valid if the open brackets must be
+closed by the same type of brackets and in correct order.
+Expected Output:
+false
+import re
+def isValid(s: str) -> bool:
+ if (s == ''):
+ return True
+ elif not ((s.count('(') - s.count(')')) == 0 and (s.count('[') - s.count(']')) == 0 and
+(s.count('{') - s.count('}')) == 0):
+ return False
+ else:
+ _result = [re.search(pattern, s)
+ for pattern in ['\((.)*\)', '\[(.)*\]', '\{(.)*\}']]
+ _result = ['' if _result[i] is None else _result[i].group()[1:-1]
+ for i in range(len(_result))]
+ return isValid(_result[0]) and isValid(_result[1]) and isValid(_result[2])
+if __name__ == '__main__':
+ print(isValid('([]){'))
+ print(isValid('[]'))
+ print(isValid('(]'))
+ print(isValid('([)]'))
+ print(isValid('{[]}'))
+ print(isValid('({()}{[}])'))
+ 
+#17 generate all combinations of well-formed parentheses from n given pairs of parentheses.
+Example:
+Input n = 5
+Output:
+(()())(())
+(()())()()
+(())((()))
+.....
+(())(())()
+(())()(())
+(())()()()
+Expected Output:
+((((()))))
+(((()())))
+(((())()))
+(((()))())
+(((())))()
+((()(())))
+((()()()))
+((()())())
+((()()))()
+((())(()))
+((())()())
+((())())()
+((()))(())
+((()))()()
+(()((())))
+(()(()()))
+(()(())())
+(()(()))()
+(()()(()))
+(()()()())
+(()()())()
+(()())(())
+(()())()()
+(())((()))
+(())(()())
+(())(())()
+(())()(())
+(())()()()
+()(((())))
+()((()()))
+()((())())
+()((()))()
+()(()(()))
+()(()()())
+()(()())()
+()(())(())
+()(())()()
+()()((()))
+()()(()())
+()()(())()
+()()()(())
+()()()()()
+def generate(result: List[str], s: str, _open: int, close: int, n: int):
+ if _open == n and close == n:
+ result.append(s)
+ return
+ if _open < n:
+ generate(result, s + "(", _open + 1, close, n)
+ if close < _open:
+ generate(result, s + ")", _open, close + 1, n)
+def generateParenthesis(n: int) -> List[str]:
+ result = []
+ generate(result, "", 0, 0, n)
+ return result
+ 
+#18 remove the duplicates from a given array of integers.
+Expected Output:
+Original array:
+1 1 2 3 4 4 5 6 6 6
+After removing duplicates from the above sorted
+array: 1 2 3 4 5 6
+a = [1,1,2,3,4,4,5,6,6,6]
+dup_items = set()
+uniq_items = []
+for x in a:
+ if x not in dup_items:
+ uniq_items.append(x)
+ dup_items.add(x)
+print(dup_items)
+
+#19 remove all instances of a given value in a given array of
+integers and return the length of the new array.
+Expected Output:
+Original array: 1 1 2 3 4 4 5 6 6 6
+Size of the new array after removing the value 4: 8
+def remove_element(array_nums, val):
+ i = 0
+ while i < len(array_nums):
+ if array_nums[i] == val: array_nums.remove(array_nums[i])
+ else:
+ i += 1
+ return len(array_nums)
+print(remove_element([1, 1, 2, 3, 4, 4, 5, 6,6,6], 4))
+print(remove_element([10,10,10,10,10], 10))
+print(remove_element([10,10,10,10,10], 20))
+print(remove_element([], 1))
+
+#20 find the index of the first occurrence of a given string within
+another given string. If not found return -1.
+Expected Output:
+Main string: w3resource.com
+Substring searched in main string: source
+Starting position of the substring in the main string: 4
+def change_char(str1):
+ char = str1[0]
+ str1 = str1.replace(char, '$')
+ str1 = char + str1[1:]
+ return str -1
+print(change_char('restart'))
