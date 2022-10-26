@@ -1,0 +1,552 @@
+#1 check if two strings are a rotation of each other
+def is_anagram(str1,str2):
+ return sorted(str1)==sorted(str2)
+str1='abcd'
+str2='dbac'
+print(is_anagram(str1,str2))
+
+#2 check if a given string is a palindrome
+string="level"
+if(string==string[::-1]):
+ print("palindrome")
+else:
+ print("not a palindrome")
+ 
+#3 binary search tree implemented
+class Node:
+def __init__(self, key):
+self.left = None
+self.right = None
+self.val = key
+def insert(root, key):
+if root is None:
+return Node(key)
+else:
+if root.val == key:
+return root
+elif root.val < key:
+root.right = insert(root.right, key)
+else:
+root.left = insert(root.left, key)
+return root
+def inorder(root):
+if root:
+inorder(root.left)
+print(root.val)
+inorder(root.right)
+r = Node(50)
+r = insert(r, 30)
+r = insert(r, 20)
+r = insert(r, 40)
+r = insert(r, 70)
+r = insert(r, 60)
+r = insert(r, 80)
+inorder(r)
+
+#4  perform preorder traversal in a given binary tree
+class TreeNode:
+ def __init__(self, data, left = None, right = None):
+ self.data = data
+ self.left = left
+ self.right = right
+def insert(temp,data):
+ que = []
+ que.append(temp)
+ while (len(que)):
+ temp = que[0]
+ que.pop(0)
+ if (not temp.left):
+ temp.left = TreeNode(data)
+ break
+ else:
+ que.append(temp.left)
+ if (not temp.right):
+ temp.right = TreeNode(data)
+ break
+ else:
+ que.append(temp.right)
+def make_tree(elements):
+ Tree = TreeNode(elements[0])
+ for element in elements[1:]:
+ insert(Tree, element)
+ return Tree
+class Solution(object):
+ def preorderTraversal(self, root):
+ res = []
+ st = []
+ node = root
+ while node or st:
+ while node:
+ if node.data != None:
+ res.append(node.data)
+ st.append(node)
+ node = node.left
+ temp = st[-1]
+ st.pop()
+ if temp.right:
+ node = temp.right
+ return res
+ob1 = Solution()
+head = make_tree([3,9,20,None,None,15,7])
+print(ob1.preorderTraversal(head))
+
+#5 traverse a given binary tree in preorder without recursion
+class TreeNode:
+ def __init__(self, data, left = None, right = None):
+ self.data = data
+ self.left = left
+ self.right = right
+def insert(temp,data):
+ que = []
+ que.append(temp)
+ while (len(que)):
+ temp = que[0]
+ que.pop(0)
+ if (not temp.left):
+ temp.left = TreeNode(data)
+ break
+ else:
+ que.append(temp.left)
+ if (not temp.right):
+ temp.right = TreeNode(data)
+ break
+ else:
+ que.append(temp.right)
+def make_tree(elements):
+ Tree = TreeNode(elements[0])
+ for element in elements[1:]:
+ insert(Tree, element)
+ return Tree
+class Solution(object):
+ def preorderTraversal(self, root):
+ res = []
+ st = []
+ node = root
+ while node or st:
+ while node:
+ if node.data != None:
+ res.append(node.data)
+ st.append(node)
+ node = node.left
+ temp = st[-1]
+ st.pop()
+ if temp.right:
+ node = temp.right
+ return res
+ob1 = Solution()
+head = make_tree([3,9,20,None,None,15,7])
+print(ob1.preorderTraversal(head))
+
+#6  perform an inorder traversal in a given binary tree
+class TreeNode:
+ def __init__(self, data, left = None, right = None):
+ self.data = data
+ self.left = left
+ self.right = right
+def insert(temp,data):
+ que = []
+ que.append(temp)
+ while (len(que)):
+ temp = que[0]
+ que.pop(0)
+ if (not temp.left):
+ temp.left = TreeNode(data)
+ break
+ else:
+ que.append(temp.left)
+ if (not temp.right):
+ temp.right = TreeNode(data)
+ break
+ else:
+ que.append(temp.right)
+def make_tree(elements):
+ Tree = TreeNode(elements[0])
+ for element in elements[1:]:
+ insert(Tree, element)
+ return Tree
+class Solution(object):
+ def inorderTraversal(self, root):
+ res, stack = [], []
+ current = root
+ while True:
+ while current:
+ stack.append(current)
+ current = current.left
+ if len(stack) == 0:
+ return res
+ node = stack[-1]
+ stack.pop(len(stack)-1)
+ if node.data != None:
+ res.append(node.data)
+ current = node.right
+ return res
+ob1 = Solution()
+root = make_tree([10,5,15,2,7,None,20])
+print(ob1.inorderTraversal(root))
+
+#7 print all nodes of a given binary tree using inorder traversal without recursion
+class TreeNode:
+ def __init__(self, data, left = None, right = None):
+ self.data = data
+ self.left = left
+ self.right = right
+def insert(temp,data):
+ que = []
+ que.append(temp)
+ while (len(que)):
+ temp = que[0]
+ que.pop(0)
+ if (not temp.left):
+ temp.left = TreeNode(data)
+ break
+ else:
+ que.append(temp.left)
+ if (not temp.right):
+ temp.right = TreeNode(data)
+ break
+ else:
+ que.append(temp.right)
+def make_tree(elements):
+ Tree = TreeNode(elements[0])
+ for element in elements[1:]:
+ insert(Tree, element)
+ return Tree
+class Solution(object):
+ def inorderTraversal(self, root):
+ res, stack = [], []
+ current = root
+ while True:
+ while current:
+ stack.append(current)
+ current = current.left
+ if len(stack) == 0:
+ return res
+ node = stack[-1]
+ stack.pop(len(stack)-1)
+ if node.data != None:
+ res.append(node.data)
+ current = node.right
+ return res
+ob1 = Solution()
+root = make_tree([10,5,15,2,7,None,20])
+print(ob1.inorderTraversal(root))
+
+#8 implement a postorder traversal algorithm
+class BinaryTreeNode:
+ def __init__(self, data):
+ self.data = data
+ self.leftChild = None
+ self.rightChild = None
+def postorder(root):
+ if root is None:
+ return
+ postorder(root.leftChild)
+ postorder(root.rightChild)
+ print(root.data, end=" ,")
+def insert(root, newValue):
+ if root is None:
+ root = BinaryTreeNode(newValue)
+ return root
+ if newValue < root.data:
+ root.leftChild = insert(root.leftChild, newValue)
+ else:
+ root.rightChild = insert(root.rightChild, newValue)
+ return root
+root = insert(None, 50)
+insert(root, 20)
+insert(root, 53)
+insert(root, 11)
+insert(root, 22)
+insert(root, 52)
+insert(root, 78)
+print("Postorder traversal of the binary tree is:")
+postorder(root)
+
+#9 traverse a binary tree in postorder traversal without recursion
+class BinaryTreeNode:
+ def __init__(self, data):
+ self.data = data
+ self.leftChild = None
+ self.rightChild = None
+def postorder(root):
+ if root is None:
+ return
+ postorder(root.leftChild)
+ postorder(root.rightChild)
+ print(root.data, end=" ,")
+def insert(root, newValue):
+ if root is None:
+ root = BinaryTreeNode(newValue)
+ return root
+ if newValue < root.data:
+ root.leftChild = insert(root.leftChild, newValue)
+ else:
+ root.rightChild = insert(root.rightChild, newValue)
+ return root
+root = insert(None, 50)
+insert(root, 20)
+insert(root, 53)
+insert(root, 11)
+insert(root, 22)
+insert(root, 52)
+insert(root, 78)
+print("Postorder traversal of the binary tree is:")
+postorder(root)
+
+#10 count the number of leaf nodes in a given binary tree
+class Tree_structure:
+ def __init__(self, data=None):
+ self.key = data
+ self.children = []
+ def set_root_node(self, data):
+ self.key = data
+ def add_vals(self, node):
+ self.children.append(node)
+ def search_val(self, key):
+ if self.key == key:
+ return self
+ for child in self.children:
+ temp = child.search(key)
+ if temp is not None:
+ return temp
+ return None
+ def count_leaf_node(self):
+ leaf_nodes = []
+ self.count_leaf_node_helper_fun(leaf_nodes)
+ return len(leaf_nodes)
+ def count_leaf_node_helper_fun(self, leaf_nodes):
+ if self.children == []:
+ leaf_nodes.append(self)
+ else:
+ for child in self.children:
+ child.count_leaf_node_helper_fun(leaf_nodes)
+tree = None
+print('Menu (this assumes no duplicate keys)')
+print('add <data> at root')
+print('add <data> below <data>')
+print('count')
+print('quit')
+while True:
+ my_input = input('What operation would you like to perform ? ').split()
+ operation = my_input[0].strip().lower()
+ if operation == 'add':
+ data = int(my_input[1])
+ newNode = Tree_structure(data)
+ sub_op = my_input[2].strip().lower()
+ if sub_op == 'at':
+ tree = newNode
+ elif sub_op == 'below':
+ my_pos = my_input[3].strip().lower()
+ key = int(my_pos)
+ ref_node = None
+ if tree is not None:
+ ref_node = tree.search_val(key)
+ if ref_node is None:
+ print('No such key.')
+ continue
+ ref_node.add_vals(newNode)
+ elif operation == 'count':
+ if tree is None:
+ print('The tree is empty')
+ else:
+ count = tree.count_leaf_node()
+ print('The number of leaf nodes are : {}'.format(count))
+ elif operation == 'quit':
+ break
+ 
+#11 bubble sort algorithm implementation
+def bubble_sort(alist):
+ for i in range(len(alist) - 1, 0, -1):
+ no_swap = True
+ for j in range(0, i):
+ if alist[j + 1] < alist[j]:
+ alist[j], alist[j + 1] = alist[j + 1], alist[j]
+ no_swap = False
+ if no_swap:
+ return
+alist = input('Enter the list of numbers: ').split()
+alist = [int(x) for x in alist]
+bubble_sort(alist)
+print('Sorted list: ', end='')
+print(alist)
+
+#12 iterative quicksort algorithm implementation
+def bubble_sort(alist):
+ for i in range(len(alist) - 1, 0, -1):
+ no_swap = True
+ for j in range(0, i):
+ if alist[j + 1] < alist[j]:
+ alist[j], alist[j + 1] = alist[j + 1], alist[j]
+ no_swap = False
+ if no_swap:
+ return
+alist = input('Enter the list of numbers: ').split()
+alist = [int(x) for x in alist]
+bubble_sort(alist)
+print('Sorted list: ', end='')
+print(alist)
+
+#13 implement an insertion sort algorithm
+def insertion_sort(alist):
+ for i in range(1, len(alist)):
+ temp = alist[i]
+ j = i - 1
+ while (j >= 0 and temp < alist[j]):
+ alist[j + 1] = alist[j]
+ j = j - 1
+ alist[j + 1] = temp
+alist = input('Enter the list of numbers: ').split()
+alist = [int(x) for x in alist]
+insertion_sort(alist)
+print('Sorted list: ', end='')
+print(alist)
+
+#14 merge sort algorithm implementation
+def mergeSort(array):
+ if len(array) > 1:
+
+ r = len(array)//2
+ L = array[:r]
+ M = array[r:]
+
+ mergeSort(L)
+ mergeSort(M)
+ i = j = k = 0
+ position at A[p..r]
+ while i < len(L) and j < len(M):
+ if L[i] < M[j]:
+ array[k] = L[i]
+ i += 1
+ else:
+ array[k] = M[j]
+ j += 1
+ k += 1
+ while i < len(L):
+ array[k] = L[i]
+ i += 1
+ k += 1
+ while j < len(M):
+ array[k] = M[j]
+ j += 1
+ k += 1
+def printList(array):
+ for i in range(len(array)):
+ print(array[i], end=" ")
+ print()
+if __name__ == '__main__':
+ array = [6, 5, 12, 10, 9, 1]
+ mergeSort(array)
+ print("Sorted array is: ")
+ printList(array)
+ 
+#15 implement a bucket sort algorithm
+def bucket_sort(alist):
+ largest = max(alist)
+ length = len(alist)
+ size = largest/length
+ buckets = [[] for _ in range(length)]
+ for i in range(length):
+ j = int(alist[i]/size)
+ if j != length:
+ buckets[j].append(alist[i])
+ else:
+ buckets[length - 1].append(alist[i])
+ for i in range(length):
+ insertion_sort(buckets[i])
+ result = []
+ for i in range(length):
+ result = result + buckets[i]
+ return result
+def insertion_sort(alist):
+ for i in range(1, len(alist)):
+ temp = alist[i]
+ j = i - 1
+ while (j >= 0 and temp < alist[j]):
+ alist[j + 1] = alist[j]
+ j = j - 1
+ alist[j + 1] = temp
+alist = input('Enter the list of (nonnegative) numbers: ').split()
+alist = [int(x) for x in alist]
+sorted_list = bucket_sort(alist)
+print('Sorted list: ', end='')
+print(sorted_list)
+
+#16 implement a counting sort algorithm
+def countingSort(arr):
+ size = len(arr)
+ output = [0] * size
+ count = [0] * 10
+ for m in range(0, size):
+ count[arr[m]] += 1
+ for m in range(1, 10):
+ count[m] += count[m - 1]
+ m = size - 1
+ while m >= 0:
+ output[count[arr[m]] - 1] = arr[m]
+ count[arr[m]] -= 1
+ m -= 1
+ for m in range(0, size):
+ arr[m] = output[m]
+data = [3,5,1,6,7,8,3]
+countingSort(data)
+print("Sorted Array: ")
+print(data)
+
+#17 radix sort algorithm implementation
+def num_digits(arr):
+ maxDigit = 0
+ for num in arr:
+ maxDigit = max(maxDigit, num)
+ return len(str(maxDigit))
+from functools import reduce
+def flatten(arr):
+ return reduce(lambda x, y: x + y, arr)
+def radix(arr):
+ digits = num_digits(arr)
+ for digit in range(0, digits):
+ temp = [[] for i in range(10)]
+ for item in arr:
+ num = (item // (10 ** digit)) % 10
+ temp[num].append(item)
+ arr = flatten(temp)
+ return arr
+array = [55, 45, 3, 289, 213, 1, 288, 53, 2]
+array = radix(array)
+print(array)
+
+#18 design a vending machine
+print ("DRINKS MACHINE")
+print ("WELCOME, PLEASE ENTER YOUR MONEY")
+water = 90
+cola = 50
+Ice_Tea = 20
+drink_choice = int(input("Please enter your drink choice "))
+if drink_choice == 1:
+ print ("you selected water")
+
+elif drink_choice == 2:
+ print ("you selected cola")
+elif drink_choice == 3:
+ print ("you selected tea")
+else:
+ print ("you did not make a valid selection please enter 1, 2, or 3")
+
+#19 swap two numbers without using the third variable
+a=int(input("enter the value of a:"))
+b=int(input("enter the value of b:"))
+print("Before swapping value of a,b",a,b)
+(a,b)=(b,a)
+print("After swapping value of a,b",a,b)
+
+#20 check if a number is a prime number
+num=int(input("enter a number:"))
+if num>1:
+ for i in range(2,num):
+ if(num%i)==0:
+ print("not a prime")
+ break
+ else:
+ print("prime")
+else:
+ print("not a prime")
+ 
